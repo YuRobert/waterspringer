@@ -126,12 +126,7 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.waterspringer</groupId>-->
-<!--            <artifactId>security</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+
     </dependencies>
     <build>
         <resources>

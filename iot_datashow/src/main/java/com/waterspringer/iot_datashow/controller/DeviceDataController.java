@@ -22,6 +22,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/iot_datashow/device-data")
 public class DeviceDataController {
+
 //l7412948l5.imdo.co/iot_datashow/device-data/recivedata
     @PostMapping("/recivedata")
     public R reciveData(@RequestBody DeviceData deviceData)
@@ -38,10 +39,6 @@ public class DeviceDataController {
         }
 
         return R.ok();
-        //clirntID:tainwei/chexing/uuid
-        //tianwei/type/carsend
-
-        //tianwei/type/seversend
     }
     @PostMapping("/recivenotice")
     public R reciveNotice(@RequestBody DeviceNotice deviceNotice)
@@ -57,6 +54,7 @@ public class DeviceDataController {
             e.printStackTrace();
         }
         return R.ok();
+
     }
     @GetMapping("/hello")
     public R Hello()
