@@ -13,9 +13,10 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 
-//@ComponentScan(basePackages = "com.waterspringer")
+@ComponentScan(basePackages = "com.waterspringer")
 @MapperScan({"com.waterspringer.iot_datashow.mapper","com.waterspringer.security.mapper"})
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class DataShowApplication
 {
     public static void main(String[] args)

@@ -1,12 +1,12 @@
 package com.waterspringer.security.service;
 
 
-import com.waterspringer.security.entity.ResponseResult;
+import com.waterspringer.commonutils.R;
 import com.waterspringer.security.entity.User;
 
 public interface LoginServcie {
-    ResponseResult login(User user);
+    R login(User user);
 
-    ResponseResult logout();
+    R logout();
 
 }

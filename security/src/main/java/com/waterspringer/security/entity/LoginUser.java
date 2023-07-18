@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,30 +24,34 @@ public class LoginUser implements UserDetails {
     @TableId(value = "device_id", type = IdType.UUID)
     private User user;
 
-//    private List<String> permissions;
+    private List<String> permissions;
 
-//    public LoginUser(User user, List<String> permissions) {
-//        this.user = user;
-//        this.permissions = permissions;
-//    }
 //    @JSONField(serialize = false)
 //    private List<SimpleGrantedAuthority> authorities;
+
+    public LoginUser(User user, List<String> permissions)
+    {
+        this.user = user;
+        this.permissions = permissions;
+    }
+
+    @JSONField(serialize = false)
+    private List<SimpleGrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        if(authorities!=null){
-//            return authorities;
-//        }
+        if(authorities!=null){
+            return authorities;
+        }
         //把permissions中String类型的权限信息封装成SimpleGrantedAuthority对象
-//       authorities = new ArrayList<>();
-//        for (String permission : permissions) {
-//            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission);
-//            authorities.add(authority);
-//        }
+       authorities = new ArrayList<>();
+        for (String permission : permissions) {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission);
+            authorities.add(authority);
+        }
 //        authorities = permissions.stream()
 //                .map(SimpleGrantedAuthority::new)
 //                .collect(Collectors.toList());
-//        return authorities;
-        return null;
+        return authorities;
     }
 
     @Override

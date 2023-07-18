@@ -5,11 +5,13 @@ import com.waterspringer.commonutils.R;
 import com.waterspringer.security.entity.User;
 import com.waterspringer.security.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("/hello")
+    @PreAuthorize("hasAuthority('test')")
     public R getUser()
     {
         System.out.println("hello");
