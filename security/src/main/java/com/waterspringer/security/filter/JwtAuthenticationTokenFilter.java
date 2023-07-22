@@ -1,6 +1,7 @@
 package com.waterspringer.security.filter;
 
 import com.waterspringer.security.entity.LoginUser;
+import com.waterspringer.security.utils.HeaderMapRequestWrapper;
 import com.waterspringer.security.utils.JwtUtil;
 import com.waterspringer.security.utils.RedisCache;
 import io.jsonwebtoken.Claims;
@@ -33,6 +34,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
+
+        request = this.addTokenForWebSocket(request, response);
         //获取token
         String token = request.getHeader("token");
         if (!StringUtils.hasText(token))
@@ -68,4 +71,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
         //
 
     }
+    private HttpServletRequest addTokenForWebSocket(HttpServletRequest request, HttpServletResponse response) {
+
+        String token = request.getHeader("token");
+        if(StringUtils.hasText(token)) {
+            return request;
+        }
+        HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(request);
+        token = request.getHeader("sec-websocket-protocol");
+        if(!StringUtils.hasText(token)) {
+            return request;
+        }
+        requestWrapper.addHeader("token", token);
+        response.addHeader("sec-websocket-protocol", token);
+        return  requestWrapper;
+    }
+
 }

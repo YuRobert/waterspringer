@@ -17,22 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-//@RequestMapping("/security/user")
+@RequestMapping("/security/user")
 public class LoginController
 {
     @Autowired
     private LoginServcie loginServcie;
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public R login(@RequestBody User user)
     {
         return loginServcie.login(user);
     }
 
-    @RequestMapping("/user/logout")
+    @RequestMapping("/logout")
     public R logout()
     {
         return loginServcie.logout();
     }
-
 }

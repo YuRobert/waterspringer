@@ -2,8 +2,8 @@ package com.waterspringer.mqtt;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.waterspringer.iot_datashow.entity.DeviceData;
-import com.waterspringer.iot_datashow.service.impl.DeviceDataServiceImpl;
+import com.waterspringer.iot_datarecive.entity.DeviceData;
+import com.waterspringer.iot_datarecive.service.impl.DeviceDataServiceImpl;
 import com.waterspringer.mqtt.entity.EmqxClient;
 import com.waterspringer.websocket.client.WebSocketServer;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -59,9 +60,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
-                .antMatchers("/user/login").anonymous()
+                .antMatchers("/security/user/login").anonymous()
+//                .antMatchers("/ws/**").anonymous()
+                .antMatchers(("/iot_datashow/device-data/recivedata")).anonymous()
+                .antMatchers(("/iot_datashow/device-data/recivenotice")).anonymous()
+
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
+
         //把token校验过滤器添加到过滤器链中
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -71,7 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 authenticationEntryPoint(authenticationEntryPoint).
                 //配置授权失败处理器
                 accessDeniedHandler(accessDeniedHandler);
+        http.cors();
     }
+
+
 
 
     @Bean

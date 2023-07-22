@@ -33,7 +33,7 @@ public class User implements Serializable {
     @TableId(value = "user_id", type = IdType.AUTO)
     private Long userId;
 
-    private String companyId;
+    private String companyName;
 
     @ApiModelProperty(value = "用户名")
     private String userName;

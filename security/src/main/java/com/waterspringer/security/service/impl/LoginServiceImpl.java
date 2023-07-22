@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Robert17
@@ -40,13 +41,14 @@ public class LoginServiceImpl implements LoginServcie
         {
             throw new RuntimeException("登陆失败");
         }
-        //如果没通过，给出userid生成一个jwt jwt存入
+        //如果通过，给出userid生成一个jwt jwt存入
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String userId = loginUser.getUser().getUserId().toString();
         String jwt = JwtUtil.createJWT(userId);
         //把完整用户信息存入redis userid作为key
-        redisCache.setCacheObject("login:"+userId,loginUser);
+        redisCache.setCacheObject("login:"+userId,loginUser,1, TimeUnit.DAYS);
         return R.ok().data("jwt",jwt);
+
     }
 
     @Override
