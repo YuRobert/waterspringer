@@ -11,7 +11,6 @@
         <module name="iot_datashow" />
         <module name="iot_datareceive" />
         <module name="common_utils" />
-        <module name="iot_datarecive" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,7 +21,6 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common_utils" options="-parameters" />
       <module name="iot_datareceive" options="-parameters" />
-      <module name="iot_datarecive" options="-parameters" />
       <module name="iot_datashow" options="-parameters" />
       <module name="iot_mqtt" options="-parameters" />
       <module name="security" options="-parameters" />

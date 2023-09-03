@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waterspringer.iot_datashow.mapper.DeviceDetailsMapper">
+
+    <select id="getInfoById" resultType="com.waterspringer.iot_datashow.entity.webvo.DeviceInfoWebVo">
+        SELECT
+            dd.`device_id`,dd.`device_type`,dd.`produce_company`,dd.`produce_time`,ci1.`company_tel` AS `produce_company_tel`,dd.`purchase_company`,dd.`purchase_time`,ci2.`company_tel` AS `purchase_company_tel`
+        FROM
+            device_details dd
+                LEFT JOIN `company_information` ci1 ON dd.`produce_company` = ci1.`company_name`
+                LEFT JOIN `company_information` ci2 ON dd.`purchase_company` = ci2.`company_name`
+        WHERE
+            device_id = #{deviceId}
+    </select>
+</mapper>
