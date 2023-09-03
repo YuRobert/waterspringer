@@ -1,6 +1,7 @@
 package com.waterspringer.security.utils;
 
 import com.waterspringer.security.entity.LoginUser;
+import com.waterspringer.security.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityUtils
 {
-
-    public LoginUser getLoginUser()
+    public User getLoginUserInfo()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser;
+        User user = loginUser.getUser();
+        return user;
     }
 }

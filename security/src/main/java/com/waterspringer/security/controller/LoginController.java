@@ -1,10 +1,8 @@
 package com.waterspringer.security.controller;
 
-import com.waterspringer.commonutils.R;
-import com.waterspringer.security.entity.LoginUser;
+import com.waterspringer.commonutils.ResponseResult;
 import com.waterspringer.security.entity.User;
 import com.waterspringer.security.service.LoginServcie;
-import com.waterspringer.security.service.impl.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,13 +22,13 @@ public class LoginController
     private LoginServcie loginServcie;
 
     @PostMapping("/login")
-    public R login(@RequestBody User user)
+    public ResponseResult login(@RequestBody User user)
     {
         return loginServcie.login(user);
     }
 
     @RequestMapping("/logout")
-    public R logout()
+    public ResponseResult logout()
     {
         return loginServcie.logout();
     }

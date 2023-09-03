@@ -1,7 +1,7 @@
 package com.waterspringer.security.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.waterspringer.commonutils.R;
+import com.waterspringer.commonutils.ResponseResult;
 import com.waterspringer.security.utils.WebUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -23,6 +23,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException
     {
-        WebUtils.renderString(httpServletResponse, JSON.toJSONString(R.error().code(HttpStatus.FORBIDDEN.value()).message("认证失败，请重新登陆")));
+        WebUtils.renderString(httpServletResponse, JSON.toJSONString(ResponseResult.error().code(HttpStatus.FORBIDDEN.value()).message("认证失败，请重新登陆")));
     }
 }

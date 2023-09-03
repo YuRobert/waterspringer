@@ -62,8 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/security/user/login").anonymous()
 //                .antMatchers("/ws/**").anonymous()
-                .antMatchers(("/iot_datashow/device-data/recivedata")).anonymous()
-                .antMatchers(("/iot_datashow/device-data/recivenotice")).anonymous()
+                .antMatchers(("/iot_datareceive/device-data/receivedata")).anonymous()
+                .antMatchers(("/iot_datareceive/device-event/receivenotice")).anonymous()
+                .antMatchers(("/iot_datashow/company-information/hello")).anonymous()
+//                .antMatchers(("/iot_datashow/device-details/getDetails/{deviceId}")).anonymous()
 
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();

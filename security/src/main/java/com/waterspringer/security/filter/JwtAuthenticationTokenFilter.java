@@ -1,13 +1,11 @@
 package com.waterspringer.security.filter;
 
+import com.waterspringer.commonutils.redis.RedisCache;
 import com.waterspringer.security.entity.LoginUser;
 import com.waterspringer.security.utils.HeaderMapRequestWrapper;
 import com.waterspringer.security.utils.JwtUtil;
-import com.waterspringer.security.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

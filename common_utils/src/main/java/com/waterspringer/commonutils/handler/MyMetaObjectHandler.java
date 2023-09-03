@@ -21,6 +21,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler
         //属性名称，不是字段名
         this.setFieldValByName("createTime", new Date(), metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
+        this.setFieldValByName("uploadTime", new Date(), metaObject);
         System.out.println(".............");
     }
 

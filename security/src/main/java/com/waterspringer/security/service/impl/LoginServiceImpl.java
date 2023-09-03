@@ -1,19 +1,21 @@
 package com.waterspringer.security.service.impl;
 
-import com.waterspringer.commonutils.R;
+import com.waterspringer.commonutils.ResponseResult;
+
+import com.waterspringer.commonutils.redis.RedisCache;
 import com.waterspringer.security.entity.LoginUser;
 import com.waterspringer.security.entity.User;
 import com.waterspringer.security.service.LoginServcie;
 import com.waterspringer.security.utils.JwtUtil;
-import com.waterspringer.security.utils.RedisCache;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -29,13 +31,11 @@ public class LoginServiceImpl implements LoginServcie
     @Autowired
     private RedisCache redisCache;
     @Override
-    public R login(User user)
+    public ResponseResult login(User user)
     {
         //AuthenticationManager进行用户认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-
-
         //如果认证没通过给出对应的提示
         if(Objects.isNull(authenticate))
         {
@@ -43,21 +43,22 @@ public class LoginServiceImpl implements LoginServcie
         }
         //如果通过，给出userid生成一个jwt jwt存入
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+        List<String> permissions = loginUser.getPermissions();
         String userId = loginUser.getUser().getUserId().toString();
         String jwt = JwtUtil.createJWT(userId);
         //把完整用户信息存入redis userid作为key
         redisCache.setCacheObject("login:"+userId,loginUser,1, TimeUnit.DAYS);
-        return R.ok().data("jwt",jwt);
+        return ResponseResult.ok().data("jwt",jwt).data("permissions",permissions);
 
     }
 
     @Override
-    public R logout()
+    public ResponseResult logout()
     {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Long userId = loginUser.getUser().getUserId();
         redisCache.deleteObject("login:"+userId);
-        return R.ok();
+        return ResponseResult.ok();
     }
 }
